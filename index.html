@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/60d5a31cca.js" crossorigin="anonymous"></script>
+  <style>
+    		#audio-button {
+
+			display: inline-block;
+
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		#audio-button i {
+			margin-right: 5px;
+		}
+		#audio-button.playing {
+			background-color: #00cc00;
+		}
+		#audio-button.playing i:before {
+			content: "\f04c";
+		}
+		#audio-button.paused i:before {
+			content: "\f04b";
+		}
+  </style>
 </head>
 <body>
 	<div class="login-box">
@@ -29,9 +56,32 @@
       Login
     </a>
   </form>
+    <audio id="my-audio" autoplay loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
   <p class="contact">Don't have account? contact <a href="https://wa.me/6285735980188">Admin</a></p>
+	<center>
+	<button id="audio-button" class="paused"><i class="fas fa-play"></i>Audio</button>
+	</center>
   </div>
   <div class="watermark">©Rasya-2023</div>
   <script src="script.js"></script>
+	<script>
+		var audio = document.getElementById("my-audio");
+		var button = document.getElementById("audio-button");
+
+		button.addEventListener("click", function() {
+			if (audio.paused) {
+				audio.play();
+				button.classList.add("playing");
+				button.classList.remove("paused");
+			} else {
+				audio.pause();
+				button.classList.add("paused");
+				button.classList.remove("playing");
+			}
+		});
+	</script>
 </body>
 </html>
+
