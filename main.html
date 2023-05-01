@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Berhasil</title>
+    <script src="https://kit.fontawesome.com/60d5a31cca.js" crossorigin="anonymous"></script>
+  <style>
+    /* Style untuk judul halaman */
+    #judul-halaman {
+      text-align: center;
+      font-size: 48px;
+      color: #4CAF50;
+      margin-top: 50px;
+    }
+
+    /* Style untuk kotak login */
+    .login-box {
+      width: 400px;
+      margin: 0 auto;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Style untuk tombol keluar */
+    .keluar-btn {
+      display: block;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Style saat tombol keluar dihover */
+    .keluar-btn:hover {
+      background-color: #3e8e41;
+    }
+
+    /* Style untuk informasi durasi login */
+    #info-durasi-login {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+        		#audio-button {
+
+
+
+			display: inline-block;
+
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		#audio-button i {
+			margin-right: 5px;
+		}
+		#audio-button.playing {
+			background-color: #00cc00;
+		}
+		#audio-button.playing i:before {
+			content: "\f04c";
+		}
+		#audio-button.paused i:before {
+			content: "\f04b";
+		}
+				#next-button {
+			display: inline-block;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			font-size: 16px;
+			margin-left: 20px;
+			cursor: pointer;
+		}
+  </style>
+</head>
+<body>
+  <h1 id="judul-halaman">Welcome To My Web!</h1>
+
+  <div class="login-box">
+    <h1>COMING SOON</h1>
+    <p id="info-login">Anda berhasil login pada [Waktu Login].</p>
+    <p id="info-durasi-login"></p>
+    <button class="keluar-btn" onclick="keluar()">Keluar</button>
+    <br>
+        <audio id="my-audio" autoplay loop>
+      <source src="song.mp3">
+      <source src="song2.mp3">
+      <source src="song3.mp3">
+    </audio>
+    	<button id="audio-button" class="paused"><i class="fas fa-play"></i>Audio</button>
+    		<button id="next-button"><i class="fas fa-forward"></i>Next</button>
+  </div>
+    <script>
+  let waktuLogin = new Date(); // Waktu saat login
+  let waktuTerakhirAktif = new Date(); // Waktu terakhir aktivitas
+  let durasiLogin = 0; // Durasi login dalam milidetik
+    // Fungsi untuk menghitung durasi login
+    
+    function hitungDurasiLogin() {
+        let waktuSekarang = new Date();
+        durasiLogin = Math.floor((waktuSekarang.getTime() - waktuLogin.getTime()) / 1000); // Durasi dalam milidetik
+        return durasiLogin;
+    }
+
+    // Fungsi untuk memperbarui waktu terakhir aktivitas
+    function perbaruiWaktuTerakhirAktif() {
+        waktuTerakhirAktif = new Date();
+    }
+
+    // Fungsi untuk menampilkan durasi login dan waktu terakhir aktif secara real-time
+    function tampilkanDurasiLogin() {
+        let durasi = hitungDurasiLogin();
+        document.getElementById("info-durasi-login").innerHTML = "Anda telah login selama " + durasi + " detik, dan terakhir aktif pada " + waktuTerakhirAktif.toLocaleString() + ".";
+    }
+
+    // Memanggil fungsi tampilkanDurasiLogin setiap 1 detik
+    setInterval(function() {
+        tampilkanDurasiLogin();
+    }, 1000);
+
+    // Fungsi untuk keluar dari aplikasi
+    function keluar() {
+        // Lakukan proses keluar dari aplikasi
+        var keluar = confirm('Apakah Anda Yakin Ingin LogOut?')
+        if(keluar ==  true) {
+            window.location.href = "index.html";
+        } else {
+            alert('oke!')
+        }
+    }
+    document.getElementById("info-login").innerHTML = "Anda berhasil login pada " + waktuLogin.toLocaleString() + ".";
+    //audio
+var audio = document.getElementById("my-audio");
+var button = document.getElementById("audio-button");
+var nextButton = document.getElementById("next-button");
+var currentSongIndex = 0;
+var songs = ["song.mp3", "song2.mp3", "song3.mp3"];
+
+button.addEventListener("click", function() {
+    if (audio.paused) {
+        audio.play();
+        button.classList.add("playing");
+        button.classList.remove("paused");
+    } else {
+        audio.pause();
+        button.classList.add("paused");
+        button.classList.remove("playing");
+    }
+});
+
+nextButton.addEventListener("click", function() {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    audio.src = songs[currentSongIndex];
+    audio.play();
+    button.classList.add("playing");
+    button.classList.remove("paused");
+});
+    </script>
+</body>
+</html>
